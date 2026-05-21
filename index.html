@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SẢN PHẨM CỦA BỐ MINH</title>
+    <title>ĐẤM CHÓ GAY XẢ STRESS</title>
     <style>
         body {
             background-color: #15171e;
@@ -19,17 +18,9 @@
             transition: background-color 0.05s;
         }
 
-        .flash-tat {
-            background-color: #ff003c;
-        }
-
-        .flash-bua {
-            background-color: #ffffff;
-        }
-
-        .flash-dao {
-            background-color: #8b0000;
-        }
+        .flash-tat { background-color: #ff003c; }
+        .flash-bua { background-color: #ffffff; }
+        .flash-dao { background-color: #8b0000; }
 
         h1 {
             font-size: 3.5rem;
@@ -83,7 +74,7 @@
             user-select: none;
             overflow: hidden;
             border: 12px solid #000;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
             background-color: #111;
             z-index: 5;
         }
@@ -114,26 +105,17 @@
             transition: opacity 1.5s ease-out;
         }
 
-        .damage.fade {
-            opacity: 0;
-        }
+        .damage.fade { opacity: 0; }
 
         .bruise {
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(40, 0, 50, 0.98) 0%, rgba(70, 10, 20, 0.85) 45%, rgba(30, 30, 80, 0.4) 75%, transparent 100%);
+            background: radial-gradient(circle, rgba(40,0,50,0.98) 0%, rgba(70,10,20,0.85) 45%, rgba(30,30,80,0.4) 75%, transparent 100%);
             mix-blend-mode: multiply;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .crack {
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(200, 200, 200, 0.8) 15%, transparent 50%);
-            mix-blend-mode: screen;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
         .slash {
-            background: linear-gradient(90deg, transparent 0%, rgba(150, 0, 0, 0.9) 40%, rgba(255, 0, 0, 1) 50%, rgba(150, 0, 0, 0.9) 60%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(150,0,0,0.9) 40%, rgba(255,0,0,1) 50%, rgba(150,0,0,0.9) 60%, transparent 100%);
             border-radius: 50%;
             filter: blur(1px);
             mix-blend-mode: color-burn;
@@ -155,17 +137,16 @@
         }
     </style>
 </head>
-
 <body>
     <h1>CHỌN ĐỒ CHƠI ĐI</h1>
     <div class="counter" id="score">0</div>
-
+    
     <div class="weapons">
-        <button class="weapon-btn active" id="wpn-tat">ĐẤM</button>
+        <button class="weapon-btn active" id="wpn-tat">Đấm</button>
         <button class="weapon-btn" id="wpn-bua">Búa</button>
         <button class="weapon-btn" id="wpn-dao">Dao</button>
     </div>
-
+    
     <div class="face-container" id="target">
         <div class="face-wrapper" id="faceWrapper">
             <img src="z7851556607313_d6f8dab95433f1c63330e4ac839650ca.jpg" alt="Mặt" class="face" id="faceImg">
@@ -179,7 +160,7 @@
         const faceWrapper = document.getElementById('faceWrapper');
         const faceImg = document.getElementById('faceImg');
         const scoreDisplay = document.getElementById('score');
-
+        
         let score = 0;
         let resetTimeout;
         let currentWeapon = 'tat';
@@ -224,7 +205,7 @@
                 dmg.classList.add('bruise');
                 dmg.style.width = (60 + Math.random() * 80) + 'px';
                 dmg.style.height = (50 + Math.random() * 70) + 'px';
-
+                
                 targetRotate = (Math.random() - 0.5) * 40;
                 targetSkewX = (Math.random() - 0.5) * 30;
                 targetSkewY = (Math.random() - 0.5) * 30;
@@ -233,23 +214,23 @@
 
             } else if (currentWeapon === 'bua') {
                 flashClass = 'flash-bua';
-                dmg.classList.add('crack');
-                dmg.style.width = (120 + Math.random() * 60) + 'px';
-                dmg.style.height = (120 + Math.random() * 60) + 'px';
-
+                dmg.classList.add('bruise');
+                dmg.style.width = (140 + Math.random() * 80) + 'px';
+                dmg.style.height = (130 + Math.random() * 70) + 'px';
+                
                 targetScale = 1.2;
                 targetRotate = (Math.random() - 0.5) * 60;
                 targetSkewX = (Math.random() - 0.5) * 50;
                 targetSkewY = (Math.random() - 0.5) * 50;
-                targetSaturate = 0.3;
-                targetBrightness = 1.8;
+                targetSaturate = 1.5;
+                targetBrightness = 0.6;
 
             } else if (currentWeapon === 'dao') {
                 flashClass = 'flash-dao';
                 dmg.classList.add('slash');
                 dmg.style.width = (150 + Math.random() * 100) + 'px';
                 dmg.style.height = (10 + Math.random() * 15) + 'px';
-
+                
                 targetScale = 1.6;
                 targetSkewX = (Math.random() > 0.5 ? 40 : -40);
                 targetSkewY = (Math.random() - 0.5) * 20;
@@ -263,7 +244,7 @@
             dmg.style.left = x + 'px';
             dmg.style.top = y + 'px';
             dmg.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
-
+            
             target.appendChild(dmg);
 
             setTimeout(() => dmg.classList.add('fade'), 2000);
@@ -280,5 +261,4 @@
         });
     </script>
 </body>
-
 </html>
