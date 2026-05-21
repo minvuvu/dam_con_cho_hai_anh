@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÁY TÁT HỒI MÁU 5000</title>
+    <style>
+        body {
+            background-color: #1a1c23;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Impact', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.05s;
+        }
+
+        .flash {
+            background-color: #ff003c;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px #000;
+            margin-bottom: 5px;
+            z-index: 10;
+        }
+
+        .counter {
+            font-size: 6rem;
+            color: #ff3f3f;
+            text-shadow: 5px 5px 0px #fff, 10px 10px 0px #000;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        .face-container {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            cursor: crosshair;
+            user-select: none;
+            overflow: hidden;
+            border: 12px solid #000;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            background-color: #333;
+        }
+
+        .face {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
+            will-change: transform, filter;
+        }
+
+        .bruise {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(40, 0, 50, 0.98) 0%, rgba(70, 10, 20, 0.85) 45%, rgba(30, 30, 80, 0.4) 75%, transparent 100%);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            transform-origin: center;
+            z-index: 15;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .bruise.fade {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DAM CON CHO GAY</h1>
+    <div class="counter" id="score">0</div>
+
+    <div class="face-container" id="target">
+        <img src="c:\Users\Admin\.vscode\z7851556607313_d6f8dab95433f1c63330e4ac839650ca.jpg" alt="Mặt" class="face"
+            id="faceImg">
+    </div>
+
+    <script>
+        const target = document.getElementById('target');
+        const faceImg = document.getElementById('faceImg');
+        const scoreDisplay = document.getElementById('score');
+
+        let score = 0;
+        let resetTimeout;
+
+        target.addEventListener('mousedown', (e) => {
+            score++;
+            scoreDisplay.innerText = score;
+
+            document.body.classList.add('flash');
+            setTimeout(() => document.body.classList.remove('flash'), 50);
+
+            const rect = target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const bruise = document.createElement('div');
+            bruise.className = 'bruise';
+
+            const w = 60 + Math.random() * 80;
+            const h = 50 + Math.random() * 70;
+
+            bruise.style.width = w + 'px';
+            bruise.style.height = h + 'px';
+            bruise.style.left = x + 'px';
+            bruise.style.top = y + 'px';
+            bruise.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+
+            target.appendChild(bruise);
+
+            setTimeout(() => {
+                bruise.classList.add('fade');
+            }, 2000);
+
+            setTimeout(() => {
+                bruise.remove();
+            }, 3500);
+
+            const randomRotate = (Math.random() - 0.5) * 60;
+            const randomSkewX = (Math.random() - 0.5) * 50;
+            const randomSkewY = (Math.random() - 0.5) * 50;
+            const randomSaturate = Math.random() * 2;
+
+            faceImg.style.transform = `scale(1) rotate(${randomRotate}deg) skew(${randomSkewX}deg, ${randomSkewY}deg)`;
+            faceImg.style.filter = `saturate(${randomSaturate}) brightness(0.6) contrast(1.5)`;
+
+            clearTimeout(resetTimeout);
+
+            resetTimeout = setTimeout(() => {
+                faceImg.style.transform = 'scale(1) rotate(0deg) skew(0deg, 0deg)';
+                faceImg.style.filter = 'saturate(1) brightness(1) contrast(1)';
+            }, 2500);
+        });
+    </script>
+</body>
+
+</html>
